@@ -17,6 +17,7 @@ module.exports = {
     project: true,
     tsconfigRootDir: __dirname,
   },
+  ignorePatterns: [".eslintrc.cjs"],
   plugins: ["react-refresh"],
   rules: {
     "react-refresh/only-export-components": [
@@ -24,5 +25,6 @@ module.exports = {
       { allowConstantExport: true },
     ],
     "@typescript-eslint/no-non-null-assertion": "off",
+    "prefer-template": "error",
   },
 };
