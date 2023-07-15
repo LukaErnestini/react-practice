@@ -26,26 +26,25 @@ function App() {
     return date.toLocaleDateString("en-US", dateOptions).replace(/,/g, "");
   }
 
+  function handleReset() {
+    setCount(0);
+    setStep(1);
+  }
+
   return (
     <div className="container">
       <div className="flex">
-        <button
-          className="btn"
-          onClick={() => {
-            handleChange(-1, setStep);
+        <input
+          type="range"
+          min={0}
+          max={10}
+          value={step}
+          onChange={(e) => {
+            setStep(+e.target.value);
+            console.log(e.target.value);
           }}
-        >
-          -
-        </button>
-        <p>Step: {step}</p>
-        <button
-          className="btn"
-          onClick={() => {
-            handleChange(1, setStep);
-          }}
-        >
-          +
-        </button>
+        />
+        <p>{step}</p>
       </div>
       <div className="flex">
         <button
@@ -56,7 +55,13 @@ function App() {
         >
           -
         </button>
-        <p>Count: {count}</p>
+        <input
+          type="number"
+          value={count}
+          onChange={(e) => {
+            setCount(+e.target.value);
+          }}
+        />
         <button
           className="btn"
           onClick={() => {
@@ -70,6 +75,13 @@ function App() {
         {count === 0 ? "Today" : `${count} days from today`} is{" "}
         {formatDate(date)}
       </p>
+      {count !== 0 || step !== 1 ? (
+        <button className="btn" onClick={handleReset}>
+          Reset
+        </button>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
