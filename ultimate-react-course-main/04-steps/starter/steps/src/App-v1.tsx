@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 
 function App() {
@@ -36,34 +36,16 @@ function App() {
             Step {step}: {messages[step - 1]}
           </p>
           <div className="buttons">
-            <Button bgColor="#7950f2" textColor="#fff" onClick={handlePrevious}>
-              <span>👈</span> Previous
-            </Button>
-            <Button bgColor="#7950f2" textColor="#fff" onClick={handleNext}>
-              Next <span>👉</span>
-            </Button>
+            <button className="previous" onClick={handlePrevious}>
+              Previous
+            </button>
+            <button className="next" onClick={handleNext}>
+              Next
+            </button>
           </div>
         </div>
       )}
     </>
-  );
-}
-
-function Button({
-  textColor,
-  bgColor,
-  onClick,
-  children,
-}: {
-  textColor: string;
-  bgColor: string;
-  onClick: () => void;
-  children: ReactNode;
-}) {
-  return (
-    <button style={{ background: bgColor, color: textColor }} onClick={onClick}>
-      {children}
-    </button>
   );
 }
 
