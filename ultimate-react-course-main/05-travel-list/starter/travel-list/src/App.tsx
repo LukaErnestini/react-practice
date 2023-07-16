@@ -1,12 +1,23 @@
 import { useState } from "react";
 import "./App.css";
 
-function App() {
+export default function App() {
+  const [items, setItems] = useState(initialItems);
+
+  function handleAddItem(item: ItemData) {
+    setItems([...items, item]);
+  }
+
+  function handleDeleteItem(id: number) {
+    const newItems = items.filter((i) => i.id !== id);
+    setItems(newItems);
+  }
+
   return (
     <div className="app">
       <Logo />
-      <Form />
-      <PackingList />
+      <Form onAddItem={handleAddItem} />
+      <PackingList items={items} onDeleteItem={handleDeleteItem} />
       <Stats />
     </div>
   );
@@ -16,7 +27,7 @@ function Logo() {
   return <h1>🌴 Far Away 👜</h1>;
 }
 
-function Form() {
+function Form({ onAddItem }: { onAddItem: (item: ItemData) => void }) {
   const [description, setDescription] = useState("");
   const [selectedValue, setSelectedValue] = useState(1);
 
@@ -34,7 +45,7 @@ function Form() {
       quantity: selectedValue,
     };
 
-    console.log(newItem);
+    onAddItem(newItem);
 
     setDescription("");
     setSelectedValue(1);
@@ -64,25 +75,43 @@ function Form() {
   );
 }
 
-function PackingList() {
+function PackingList({
+  items,
+  onDeleteItem,
+}: {
+  items: ItemData[];
+  onDeleteItem: (id: number) => void;
+}) {
   return (
     <div className="list">
       <ul>
-        {initialItems.map((item) => (
-          <Item item={item} key={item.id} />
+        {items.map((item) => (
+          <Item item={item} onDeleteItem={onDeleteItem} key={item.id} />
         ))}
       </ul>
     </div>
   );
 }
 
-function Item({ item }: { item: ItemData }) {
+function Item({
+  item,
+  onDeleteItem,
+}: {
+  item: ItemData;
+  onDeleteItem: (id: number) => void;
+}) {
   return (
     <li>
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
-      <button>❌</button>
+      <button
+        onClick={() => {
+          onDeleteItem(item.id);
+        }}
+      >
+        ❌
+      </button>
     </li>
   );
 }
@@ -94,8 +123,6 @@ function Stats() {
     </footer>
   );
 }
-
-export default App;
 
 const initialItems = [
   { id: 1, description: "Passports", quantity: 2, packed: false },
