@@ -13,6 +13,17 @@ export default function App() {
     setItems(newItems);
   }
 
+  function handleClearItems() {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete all items?"
+    );
+    if (!confirmed) {
+      return;
+    }
+
+    setItems([]);
+  }
+
   function handlePackItem(id: number) {
     const newItems = items.map((item) => {
       if (item.id === id) {
@@ -31,6 +42,7 @@ export default function App() {
         items={items}
         onDeleteItem={handleDeleteItem}
         onPackItem={handlePackItem}
+        onClearItems={handleClearItems}
       />
       <Stats items={items} />
     </div>
@@ -93,10 +105,12 @@ function PackingList({
   items,
   onDeleteItem,
   onPackItem,
+  onClearItems,
 }: {
   items: ItemData[];
   onDeleteItem: (id: number) => void;
   onPackItem: (id: number) => void;
+  onClearItems: () => void;
 }) {
   const [sortBy, setSortBy] = useState("packed");
 
@@ -133,6 +147,7 @@ function PackingList({
           <option value={"description"}>Sort by description</option>
           <option value={"packed"}>Sort by packed status</option>
         </select>
+        <button onClick={onClearItems}>Clear List</button>
       </div>
     </div>
   );
