@@ -106,7 +106,7 @@ function Result({
   tip2: number;
 }) {
   const tipAverage = (tip1 + tip2) / 2;
-  const tip = Math.round(bill * (tipAverage / 100));
+  const tip = bill * (tipAverage / 100);
   const total = bill + tip;
 
   return <h1>{`You pay $${total} ($${bill} + $${tip} tip)`}</h1>;
