@@ -75,21 +75,45 @@ function Nav({
 }) {
   return (
     <nav className="nav-bar">
-      <div className="logo">
-        <span role="img">🍿</span>
-        <h1>usePopcorn</h1>
-      </div>
-      <input
-        className="search"
-        type="text"
-        placeholder="Search movies..."
-        value={query}
-        onChange={(e) => onSetQuery(e.target.value)}
-      />
-      <p className="num-results">
-        Found <strong>{moviesLength}</strong> results
-      </p>
+      <Logo />
+      <Search query={query} onSetQuery={onSetQuery} />
+      <NumResults moviesLength={moviesLength} />
     </nav>
+  );
+}
+
+function Logo() {
+  return (
+    <div className="logo">
+      <span role="img">🍿</span>
+      <h1>usePopcorn</h1>
+    </div>
+  );
+}
+
+function Search({
+  query,
+  onSetQuery,
+}: {
+  query: string;
+  onSetQuery: React.Dispatch<React.SetStateAction<string>>;
+}) {
+  return (
+    <input
+      className="search"
+      type="text"
+      placeholder="Search movies..."
+      value={query}
+      onChange={(e) => onSetQuery(e.target.value)}
+    />
+  );
+}
+
+function NumResults({ moviesLength }: { moviesLength: number }) {
+  return (
+    <p className="num-results">
+      Found <strong>{moviesLength}</strong> results
+    </p>
   );
 }
 
