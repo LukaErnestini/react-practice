@@ -1,5 +1,6 @@
 import { ReactNode, useState } from "react";
 import { Movie, Watched } from "./types";
+import "./App.css";
 
 const tempMovieData = [
   {
