@@ -67,12 +67,7 @@ export default function App() {
 
       <main className="main">
         <div className="box">
-          <button
-            className="btn-toggle"
-            onClick={() => setIsOpen1((open) => !open)}
-          >
-            {isOpen1 ? "–" : "+"}
-          </button>
+          <ToggleButton isOpen={isOpen1} onSetIsOpen={setIsOpen1} />
           {isOpen1 && (
             <ul className="list">
               {movies?.map((movie) => (
@@ -92,12 +87,7 @@ export default function App() {
         </div>
 
         <div className="box">
-          <button
-            className="btn-toggle"
-            onClick={() => setIsOpen2((open) => !open)}
-          >
-            {isOpen2 ? "–" : "+"}
-          </button>
+          <ToggleButton isOpen={isOpen2} onSetIsOpen={setIsOpen2} />
           {isOpen2 && (
             <>
               <div className="summary">
@@ -178,5 +168,19 @@ function Nav({
         Found <strong>{moviesLength}</strong> results
       </p>
     </nav>
+  );
+}
+
+function ToggleButton({
+  isOpen,
+  onSetIsOpen,
+}: {
+  isOpen: boolean;
+  onSetIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  return (
+    <button className="btn-toggle" onClick={() => onSetIsOpen((open) => !open)}>
+      {isOpen ? "–" : "+"}
+    </button>
   );
 }
