@@ -3,6 +3,7 @@ export type Movie = {
   Title: string;
   Year: string;
   Poster: string;
+  Type: string;
 };
 
 export type Watched = {
